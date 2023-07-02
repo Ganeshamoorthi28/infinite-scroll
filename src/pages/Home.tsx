@@ -9,14 +9,14 @@ const Home: React.FC = () => {
     const [data, setData] = useState<UserDataProps[] | null>(null)
     const [isLoading, setLoading] = useState(false)
     const [batchSize, setBatchSize] = useState(50);
-    const postIncreaseLimit = 10
+    const increaser = 50
 
     function handleScroll(e: React.UIEvent<HTMLDivElement>) {
         setLoading(true)
         const element = e.target as HTMLDivElement;
         if (element.scrollHeight - element.scrollTop === element.clientHeight) {
             setTimeout(() => {
-                setBatchSize((prevBatchSize) => prevBatchSize + postIncreaseLimit);
+                setBatchSize((prevBatchSize) => prevBatchSize + increaser);
             }, 1000);
         }
         setLoading(false)
@@ -62,22 +62,20 @@ const Home: React.FC = () => {
                         </>
                         :
                         <>
-                            <div >
-                                {data?.slice(0, batchSize).map((element: UserDataProps, index: number) => {
-                                    return (
-                                        <div
-                                            key={index}
-                                            className='mt-3 p-2 mx-5 text-black rounded-lg shadow-sm dark:bg-sideBar_dark_hover bg-sideBar_light_hover dark:text-navBar_Text'>
-                                            <img
-                                                className='rounded'
-                                                src={element.picture.large}
-                                                alt={element.name.first} />
-                                            <div>{element.name.first} </div>
-                                        </div>
-                                    )
-                                })
-                                }
-                            </div>
+                            {data?.slice(0, batchSize).map((element: UserDataProps, index: number) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className='mt-3 p-2 mx-5 text-black rounded-lg shadow-sm dark:bg-sideBar_dark_hover bg-sideBar_light_hover dark:text-navBar_Text'>
+                                        <img
+                                            className='rounded'
+                                            src={element.picture.large}
+                                            alt={element.name.first} />
+                                        <div>{element.name.first} </div>
+                                    </div>
+                                )
+                            })
+                            }
                             {isLoading ?
                                 <SkeletonLoader />
                                 : null
