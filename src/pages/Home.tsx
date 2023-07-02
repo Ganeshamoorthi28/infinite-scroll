@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NavigationBar, SkeletonLoader } from '../components'
+import { ImageTile, NavigationBar, SkeletonLoader } from '../components'
 import { GET_USER_DATA } from '../axios/userAPI'
 import { UserDataProps } from '../utils/types/UserDataType'
 import { CircularProgress } from '@mui/material'
@@ -64,15 +64,10 @@ const Home: React.FC = () => {
                         <>
                             {data?.slice(0, batchSize).map((element: UserDataProps, index: number) => {
                                 return (
-                                    <div
+                                    <ImageTile
+                                        data={element}
                                         key={index}
-                                        className='mt-3 p-2 mx-5 text-black rounded-lg shadow-sm dark:bg-sideBar_dark_hover bg-sideBar_light_hover dark:text-navBar_Text'>
-                                        <img
-                                            className='rounded'
-                                            src={element.picture.large}
-                                            alt={element.name.first} />
-                                        <div>{element.name.first} </div>
-                                    </div>
+                                    />
                                 )
                             })
                             }
